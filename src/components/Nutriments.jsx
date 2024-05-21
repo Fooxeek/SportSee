@@ -1,22 +1,28 @@
-import React from "react";
-import { USER_MAIN_DATA } from "../assets/data/data.js";
-
+import React, { useState, useEffect } from "react";
+import { fetchUserData } from "../service/apiService";
 import caloriesImg from "../assets/img/calories.png";
 import proteinesImg from "../assets/img/proteines.png";
 import glucidesImg from "../assets/img/glucides.png";
 import lipidesImg from "../assets/img/lipides.png";
 
 export default function Nutriments({ userId }) {
-  const user = USER_MAIN_DATA.find((user) => user.id === userId);
+  const [nutriments, setNutriments] = useState({
+    calorieCount: 0,
+    proteinCount: 0,
+    carbohydrateCount: 0,
+    lipidCount: 0,
+  });
 
-  const nutriments = user
-    ? user.keyData
-    : {
-        calorieCount: 0,
-        proteinCount: 0,
-        carbohydrateCount: 0,
-        lipidCount: 0,
-      };
+  useEffect(() => {
+    const getUserData = async () => {
+      const userData = await fetchUserData(userId);
+      if (userData && userData.keyData) {
+        setNutriments(userData.keyData);
+      }
+    };
+
+    getUserData();
+  }, [userId]);
 
   return (
     <div className="nutriments flex flex-col justify-between h-full">

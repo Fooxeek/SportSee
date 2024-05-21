@@ -1,7 +1,8 @@
-// apiService.js
+const ENDPOINT = "http://localhost:3000";
+
 export const fetchUserData = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:3000/user/${userId}`);
+    const response = await fetch(`${ENDPOINT}/user/${userId}`);
     if (!response.ok) {
       console.error("Erreur lors de la récupération des données utilisateur");
       return { userInfos: { firstName: "Guest" } };
@@ -16,9 +17,7 @@ export const fetchUserData = async (userId) => {
 
 export const fetchUserActivity = async (userId) => {
   try {
-    const response = await fetch(
-      `http://localhost:3000/user/${userId}/activity`
-    );
+    const response = await fetch(`${ENDPOINT}/user/${userId}/activity`);
     if (!response.ok) {
       console.error("Erreur lors de la récupération des données d'activité");
       return null;
@@ -33,9 +32,7 @@ export const fetchUserActivity = async (userId) => {
 
 export const fetchUserPerformance = async (userId) => {
   try {
-    const response = await fetch(
-      `http://localhost:3000/user/${userId}/performance`
-    );
+    const response = await fetch(`${ENDPOINT}/user/${userId}/performance`);
     if (!response.ok) {
       console.error(
         "Erreur lors de la récupération des données de performance"
@@ -52,9 +49,7 @@ export const fetchUserPerformance = async (userId) => {
 
 export const fetchUserSessions = async (userId) => {
   try {
-    const response = await fetch(
-      `http://localhost:3000/user/${userId}/average-sessions`
-    );
+    const response = await fetch(`${ENDPOINT}/user/${userId}/average-sessions`);
     if (!response.ok) {
       console.error(
         "Erreur lors de la récupération des données de sessions moyennes"

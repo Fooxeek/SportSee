@@ -6,6 +6,7 @@ import "./styles/main.css";
 
 //pages by React BrowserRouter
 import Home from "./pages/Home";
+import Error404 from "./pages/Error404";
 
 //components Header && Footer
 import Header from "./layout/Header";
@@ -17,7 +18,7 @@ function App() {
         <Header />
         <main>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Error404 />} />
             <Route path="/user/:id" element={<Home />} />
           </Routes>
         </main>

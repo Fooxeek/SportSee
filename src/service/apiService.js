@@ -1,5 +1,10 @@
 const ENDPOINT = "http://localhost:3000";
 
+/**
+ * Récupère les données utilisateur pour un utilisateur donné.
+ * @param {number} userId - L'identifiant de l'utilisateur.
+ * @returns {object} Les données de l'utilisateur ou un objet par défaut en cas d'erreur.
+ */
 export const fetchUserData = async (userId) => {
   try {
     const response = await fetch(`${ENDPOINT}/user/${userId}`);
@@ -15,6 +20,11 @@ export const fetchUserData = async (userId) => {
   }
 };
 
+/**
+ * Récupère les données d'activité pour un utilisateur donné.
+ * @param {number} userId - L'identifiant de l'utilisateur.
+ * @returns {object|null} Les données d'activité de l'utilisateur ou null en cas d'erreur.
+ */
 export const fetchUserActivity = async (userId) => {
   try {
     const response = await fetch(`${ENDPOINT}/user/${userId}/activity`);
@@ -30,6 +40,11 @@ export const fetchUserActivity = async (userId) => {
   }
 };
 
+/**
+ * Récupère les données de performance pour un utilisateur donné.
+ * @param {number} userId - L'identifiant de l'utilisateur.
+ * @returns {object|null} Les données de performance de l'utilisateur ou null en cas d'erreur.
+ */
 export const fetchUserPerformance = async (userId) => {
   try {
     const response = await fetch(`${ENDPOINT}/user/${userId}/performance`);
@@ -47,6 +62,11 @@ export const fetchUserPerformance = async (userId) => {
   }
 };
 
+/**
+ * Récupère les données de sessions moyennes pour un utilisateur donné.
+ * @param {number} userId - L'identifiant de l'utilisateur.
+ * @returns {object|null} Les données de sessions moyennes de l'utilisateur ou null en cas d'erreur.
+ */
 export const fetchUserSessions = async (userId) => {
   try {
     const response = await fetch(`${ENDPOINT}/user/${userId}/average-sessions`);

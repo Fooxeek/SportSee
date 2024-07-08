@@ -4,7 +4,7 @@ import Hero from "../components/Hero";
 import Poids from "../components/Poids/Poids";
 import SessionGraph from "../components/Session/SessionGraph";
 import PerformanceGraph from "../components/PerformanceGraph";
-import Score from "../components/Score";
+import Score from "../components/Score/Score";
 import Nutriments from "../components/Nutriments";
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
           <div className="flex mt-10">
             <SessionGraph userId={parseInt(id, 10)} />
             <PerformanceGraph userId={parseInt(id, 10)} />
-            <Score />
+            <Score userId={parseInt(id, 10)} />
           </div>
         </div>
         <div>

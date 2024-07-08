@@ -7,6 +7,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { fetchUserPerformance } from "../service/apiService";
+import { formatUserPerformance } from "../utils/formatData";
 
 export default function PerformanceGraph({ userId }) {
   const [chartData, setChartData] = useState([]);
@@ -15,33 +16,7 @@ export default function PerformanceGraph({ userId }) {
     const getUserPerformance = async () => {
       const userData = await fetchUserPerformance(userId);
       if (userData) {
-        const translations = {
-          intensity: "Intensité",
-          speed: "Vitesse",
-          strength: "Force",
-          endurance: "Endurance",
-          energy: "Énergie",
-          cardio: "Cardio",
-        };
-
-        const order = [
-          "intensity",
-          "speed",
-          "strength",
-          "endurance",
-          "energy",
-          "cardio",
-        ];
-
-        let formattedData = userData.data.map((item) => ({
-          subject: userData.kind[item.kind],
-          Value: item.value,
-          TranslatedSubject: translations[userData.kind[item.kind]],
-        }));
-
-        formattedData = formattedData.sort(
-          (a, b) => order.indexOf(a.subject) - order.indexOf(b.subject)
-        );
+        const formattedData = formatUserPerformance(userData);
         setChartData(formattedData);
       }
     };
@@ -55,14 +30,14 @@ export default function PerformanceGraph({ userId }) {
       height={350}
       className="bg-slate-800 rounded-xl mx-5"
     >
-      <RadarChart cx="50%" cy="50%" outerRadius="65%" data={chartData}>
+      <RadarChart cx="50%" cy="50%" outerRadius="75%" data={chartData}>
         <PolarGrid radialLines={false} />
         <PolarAngleAxis
           dataKey="TranslatedSubject"
           stroke="white"
           tickLine={false}
           axisLine={false}
-          tick={{ fontSize: 10 }}
+          tick={{ fontSize: 14 }}
         />
         <Radar
           name="Performance"

@@ -10,20 +10,22 @@ import {
 } from "recharts";
 import { fetchUserActivity } from "../../service/apiService";
 import CustomTooltip from "./CustomTooltip";
+import {
+  formatUserActivity,
+  getYAxisDomainActivity,
+} from "../../utils/formatData";
 
 export default function PoidsGraph({ userId }) {
   const [chartData, setChartData] = useState([]);
+  const [yAxisDomain, setYAxisDomain] = useState([0, 0]);
 
   useEffect(() => {
     const getUserActivity = async () => {
       const userActivity = await fetchUserActivity(userId);
       if (userActivity) {
-        const formattedData = userActivity.sessions.map((session, index) => ({
-          day: index + 1,
-          Kilogram: session.kilogram,
-          Calories: session.calories,
-        }));
+        const formattedData = formatUserActivity(userActivity.sessions);
         setChartData(formattedData);
+        setYAxisDomain(getYAxisDomainActivity(formattedData));
       }
     };
 
@@ -31,7 +33,7 @@ export default function PoidsGraph({ userId }) {
   }, [userId]);
 
   return (
-    <ResponsiveContainer width={900} height={400}>
+    <ResponsiveContainer width={1050} height={400}>
       <BarChart
         data={chartData}
         margin={{
@@ -50,6 +52,7 @@ export default function PoidsGraph({ userId }) {
           stroke="#909090"
           axisLine={false}
           tickLine={false}
+          domain={yAxisDomain}
         />
         <YAxis yAxisId="right" hide={true} axisLine={false} tickLine={false} />
         <Tooltip content={<CustomTooltip />} />

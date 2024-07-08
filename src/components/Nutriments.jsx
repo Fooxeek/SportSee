@@ -25,7 +25,7 @@ export default function Nutriments({ userId }) {
   }, [userId]);
 
   return (
-    <div className="nutriments flex flex-col justify-between h-full">
+    <div className="nutriments flex flex-col justify-between h-full mr-32">
       <div className="calories flex items-center bg-gray-100 rounded-xl py-8 px-14">
         <img src={caloriesImg} alt="calories" className="w-20 h-20" />
         <div>

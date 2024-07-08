@@ -9,6 +9,7 @@ import {
 } from "recharts";
 import { fetchUserSessions } from "../../service/apiService";
 import CustomTooltip from "./CustomTooltip";
+import { formatUserSessions } from "../../utils/formatData";
 
 export default function SessionGraph({ userId }) {
   const [chartData, setChartData] = useState([]);
@@ -17,12 +18,7 @@ export default function SessionGraph({ userId }) {
     const getUserSessions = async () => {
       const userSessionData = await fetchUserSessions(userId);
       if (userSessionData) {
-        const daysOfWeek = ["L", "M", "M", "J", "V", "S", "D"];
-
-        const formattedData = userSessionData.sessions.map((session) => ({
-          day: daysOfWeek[session.day - 1],
-          SessionLength: session.sessionLength,
-        }));
+        const formattedData = formatUserSessions(userSessionData.sessions);
         setChartData(formattedData);
       }
     };

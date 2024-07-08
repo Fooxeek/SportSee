@@ -1,4 +1,18 @@
+import {
+  USER_MAIN_DATA,
+  USER_ACTIVITY,
+  USER_AVERAGE_SESSIONS,
+  USER_PERFORMANCE,
+} from "../assets/data/data.js";
+
 const ENDPOINT = "http://localhost:3000";
+
+/**
+ * Détermine si l'application doit utiliser des données mock ou non.
+ * @returns {boolean} Vrai si les données mock doivent être utilisées.
+ */
+const shouldUseMockData = () => process.env.REACT_APP_USE_MOCK_DATA === "true";
+console.log("shouldUseMockData", shouldUseMockData());
 
 /**
  * Récupère les données utilisateur pour un utilisateur donné.
@@ -6,6 +20,13 @@ const ENDPOINT = "http://localhost:3000";
  * @returns {object} Les données de l'utilisateur ou un objet par défaut en cas d'erreur.
  */
 export const fetchUserData = async (userId) => {
+  if (shouldUseMockData()) {
+    return (
+      USER_MAIN_DATA.find((user) => user.id === userId) || {
+        userInfos: { firstName: "Guest" },
+      }
+    );
+  }
   try {
     const response = await fetch(`${ENDPOINT}/user/${userId}`);
     if (!response.ok) {
@@ -26,6 +47,9 @@ export const fetchUserData = async (userId) => {
  * @returns {object|null} Les données d'activité de l'utilisateur ou null en cas d'erreur.
  */
 export const fetchUserActivity = async (userId) => {
+  if (shouldUseMockData()) {
+    return USER_ACTIVITY.find((activity) => activity.userId === userId) || null;
+  }
   try {
     const response = await fetch(`${ENDPOINT}/user/${userId}/activity`);
     if (!response.ok) {
@@ -46,6 +70,12 @@ export const fetchUserActivity = async (userId) => {
  * @returns {object|null} Les données de performance de l'utilisateur ou null en cas d'erreur.
  */
 export const fetchUserPerformance = async (userId) => {
+  if (shouldUseMockData()) {
+    return (
+      USER_PERFORMANCE.find((performance) => performance.userId === userId) ||
+      null
+    );
+  }
   try {
     const response = await fetch(`${ENDPOINT}/user/${userId}/performance`);
     if (!response.ok) {
@@ -68,6 +98,12 @@ export const fetchUserPerformance = async (userId) => {
  * @returns {object|null} Les données de sessions moyennes de l'utilisateur ou null en cas d'erreur.
  */
 export const fetchUserSessions = async (userId) => {
+  if (shouldUseMockData()) {
+    return (
+      USER_AVERAGE_SESSIONS.find((sessions) => sessions.userId === userId) ||
+      null
+    );
+  }
   try {
     const response = await fetch(`${ENDPOINT}/user/${userId}/average-sessions`);
     if (!response.ok) {
